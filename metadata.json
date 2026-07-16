@@ -1,0 +1,6 @@
+{
+  "name": "People Social Network Graph",
+  "description": "An interactive social network graph demo featuring node/edge creation, custom styling, layout selection, shortest path finding, and connection metrics.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

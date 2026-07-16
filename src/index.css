@@ -1,0 +1,43 @@
+@import "tailwindcss";
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+@theme {
+  --font-sans: "Inter", "Helvetica Neue", Arial, sans-serif;
+  --color-indigo-500: #6366f1;
+  --color-pink-500: #ec4899;
+  --color-rose-500: #f43f5e;
+  --color-orange-400: #fb923c;
+  --color-slate-50: #f8fafc;
+}
+
+body {
+  background-color: #F0F2F5;
+  font-family: var(--font-sans);
+}
+
+/* Background grid pattern for Cytoscape stage */
+.vibrant-grid-bg {
+  background-image: radial-gradient(#e2e8f0 1.5px, transparent 1.5px);
+  background-size: 24px 24px;
+  background-color: #ffffff;
+}
+
+/* Scrollbar customization */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
