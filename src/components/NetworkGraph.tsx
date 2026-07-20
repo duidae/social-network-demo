@@ -2,6 +2,32 @@ import { useEffect, useRef } from 'react';
 import cytoscape from 'cytoscape';
 import { PersonNode, RelationshipEdge, LayoutType } from '../types';
 
+const getAvatarInitials = (label: string) => {
+  const parts = label.trim().split(/\s+/);
+  if (parts.length === 0) return '?';
+  if (parts.length === 1) return parts[0].slice(0, 2).toUpperCase();
+  return `${parts[0][0]}${parts[1][0]}`.toUpperCase();
+};
+
+const hashSeedToHue = (seed: string) => {
+  let hash = 0;
+  for (let i = 0; i < seed.length; i += 1) {
+    hash = (hash * 31 + seed.charCodeAt(i)) % 360;
+  }
+  return hash;
+};
+
+const createAvatarDataUrl = (initials: string, fill: string) => {
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128"><rect width="128" height="128" rx="32" ry="32" fill="${fill}" /><text x="50%" y="54%" dominant-baseline="middle" text-anchor="middle" font-family="Inter, ui-sans-serif, system-ui, sans-serif" font-size="52" font-weight="700" fill="#ffffff">${initials}</text></svg>`;
+  return `data:image/svg+xml;charset=UTF-8,${encodeURIComponent(svg)}`;
+};
+
+const getAvatarImage = (node: PersonNode) => {
+  const initials = getAvatarInitials(node.label);
+  const fill = node.color || `hsl(${hashSeedToHue(node.avatarSeed || node.label)}, 62%, 52%)`;
+  return createAvatarDataUrl(initials, fill);
+};
+
 interface NetworkGraphProps {
   nodes: PersonNode[];
   edges: RelationshipEdge[];
@@ -47,13 +73,19 @@ export default function NetworkGraph({
             'label': 'data(label)',
             'width': 'data(size)',
             'height': 'data(size)',
-            'background-color': 'data(color)',
+            
+            'background-color': '#ffffff',
+            'background-image': 'data(avatar)',
+            'background-fit': 'cover',
+            'background-clip': 'none',
+            'background-opacity': 1,
+            
             'color': '#111827', // dark slate
             'font-family': '"Inter", ui-sans-serif, system-ui, sans-serif',
             'font-size': '11px',
             'font-weight': 'bold',
             'text-valign': 'bottom',
-            'text-margin-y': 6,
+            'text-margin-y': 8,
             'border-width': '2.5px',
             'border-color': '#ffffff',
             'transition-property': 'background-color, border-color, border-width, width, height, opacity',
@@ -186,6 +218,7 @@ export default function NetworkGraph({
           company: node.company,
           color: node.color,
           size: node.size,
+          avatar: getAvatarImage(node),
         },
       })),
       ...edges.map((edge) => ({
@@ -376,7 +409,7 @@ export default function NetworkGraph({
         </button>
       </div>
 
-      {/* Floating Network Legend */}
+      {/* 
       <div className="absolute top-4 left-4 z-10 bg-white/95 backdrop-blur-md px-4 py-3 rounded-2xl border border-slate-200/85 shadow-lg shadow-slate-100/50 text-xs space-y-2 pointer-events-none md:block hidden">
         <div className="font-extrabold text-slate-800 mb-1.5 uppercase tracking-wider text-[10px] text-indigo-500">Visual Legend</div>
         <div className="flex items-center gap-2">
@@ -401,6 +434,7 @@ export default function NetworkGraph({
           <span className="text-slate-500 font-medium">Thickness = Connection strength</span>
         </div>
       </div>
+      Floating Network Legend */}
     </div>
   );
 }

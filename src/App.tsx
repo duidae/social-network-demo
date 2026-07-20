@@ -8,7 +8,7 @@ import NetworkGraph from './components/NetworkGraph';
 
 export default function App() {
   // Preset selector
-  const [currentPresetId, setCurrentPresetId] = useState('startup');
+  const [currentPresetId, setCurrentPresetId] = useState('chang-wan-chuan-network');
   
   // Graph elements states
   const [nodes, setNodes] = useState<PersonNode[]>([]);
@@ -41,7 +41,7 @@ export default function App() {
 
   // Populate initial dataset
   useEffect(() => {
-    const defaultPreset = PRESET_NETWORKS.find((p) => p.id === 'startup');
+    const defaultPreset = PRESET_NETWORKS.find((p) => p.id === 'chang-wan-chuan-network');
     if (defaultPreset) {
       setNodes(defaultPreset.nodes);
       setEdges(defaultPreset.edges);
