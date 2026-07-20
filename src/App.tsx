@@ -270,7 +270,7 @@ export default function App() {
   return (
     <div className="flex flex-col h-screen bg-[#F0F2F5] font-sans text-slate-800 antialiased p-4 gap-4 overflow-hidden" id="main-app-container">
       
-      {/* Dynamic Header Navbar */}
+      {/* Dynamic Header Navbar 
       <header className="bg-white border border-slate-200/50 px-6 py-3.5 flex items-center justify-between shadow-md shadow-slate-200/20 rounded-2xl shrink-0" id="header-bar">
         <div className="flex items-center gap-3">
           <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-indigo-500 to-pink-500 flex items-center justify-center text-white shadow-lg shadow-indigo-500/30">
@@ -298,6 +298,7 @@ export default function App() {
           </button>
         </div>
       </header>
+      */}
 
       {/* Control center & Metrics dashboard */}
       <GraphControls
